@@ -3,69 +3,76 @@
 #include "history.h"
 #include "tokenizer.h"
 
+
+// Initializes list and sets root to NULL;
 List *init_history(){
   List *history = malloc(sizeof(List));
   history->root = NULL;
 }
 
+// Adds string to the history list
 void add_history(List *list, char *str)
 {
-  int i = 0;
-  while(str[i] != '\0'){
+  int i = 0;             // Creates a copy of the string at new memory address
+  while(str[i] != '\0'){ 
     i++;
   }
   char *inStr = copy_str(str,i+1);
-  Item *item = malloc(sizeof(Item));
-  Item *temp = list->root;
+  Item *item = malloc(sizeof(Item)); // Allocates memory for a new item.
+  Item *temp = list->root; 
 
-  item->str = inStr;
-  item->next = NULL;
+  item->str = inStr; // Sets value to the str field of new item
+  item->next = NULL; // Sets value of the next field to NULL
   int count = 0;
 
-  if(list->root == NULL){
-    item->id = count;
+  if(list->root == NULL){ // If List is empty new item becomes the root.
+    item->id = count;   
     list->root = item;
   }
-  else{
+  else{             // If list is not empty, traverse through list until next is NULL
     count = 1;
     while(temp->next != NULL){
       count++;
       temp = temp ->next;
-    }
+    }                    // Appends Item with correct id
     temp->next = item;
     item->id = count;
   }
 }
+
+// Gets the string at position id of linked list
 char *get_history(List *list, int id)
 {
-  Item *temp = list->root;
-  while(temp != NULL){
-    if(temp->id == id){
-      return temp->str;
+  Item *temp = list->root; // Starts at root 
+  while(temp != NULL){   // Loops through the contents of list
+    if(temp->id == id){  // until item with the specified id is found
+      return temp->str;  // if found, returns the string field of that item 
     }
-    temp = temp->next;
+    temp = temp->next; 
   }
-  return NULL;
+  return NULL; // if id not found, returns NULL
 }
 
+// Prints the strings held in history
 void print_history(List *list)
 {
-  Item *temp = list->root;
+  Item *temp = list->root; // Starts at root
   printf("\n");
-  while(temp != NULL){
-    printf("%d: %s\n", temp->id, temp->str);
+  while(temp != NULL){ // Traverses through contents of list until NULL
+    printf("%d: %s\n", temp->id, temp->str); // Prints id and str of that item
     temp = temp->next;
   }
   printf("\n");
 }
 
+// Frees the allocated memory of history
 void free_history(List *list)
 {
-  Item *temp;
-  while(list->root != NULL){
-    temp = list->root;
-    list->root = list->root->next;
-    free(temp);
+  Item *temp;                // temp to store old head
+  while(list->root != NULL){ // Traverse through the list by setting
+    temp = list->root;       // the root to be the next of current root
+    list->root = list->root->next; // new root is the next of current root
+    free(temp);              // frees the old root item
   }
-  free(list);
+  free(list);                // frees the memory allocated for list 
 }

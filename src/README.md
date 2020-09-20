@@ -1,12 +1,17 @@
 Project 1: Tokenizer
 ====================
-# Instructions:
 
-You should document your tokenizer in this file.
+This program requests input from the user. The user has options to enter a
+string that will be tokenized and added to list that stores previously entered
+strings. Or to request the string at position i of the list.
 
-This file is written in the refreshingly simple `markdown` text
-formatting language.
+The program tokenizes strings by, counting the number of words in the user given string
+and allocating enough space to store pointers for those words. Then uses
+pointer arithmetic to find the start and end of each word so that word may be
+copied into new allocated memory and stored as a token.
 
-To learn about text formatting using markdown, we encourage you to examine 
- - [../README.md](../README.md)
- - the online [Markdown Guide](https://www.markdownguide.org/).
+Each time a word is tokenized, its appended to a simpled linked list. The
+linked list is used so that the user could see what strings were previously
+entered into the tokenizer.
+
+NOTE: History starts at index 0

@@ -27,9 +27,9 @@ char *word_start(char *s)
 // Returns a pointer to the end of the given word.
 char *word_terminator(char *word)
 {
-  word = word_start(word);
+  word = word_start(word);   // If given word starts with empty space, remove empty space.
   int i = 0;
-  while(non_space_char(word[i])) i++;
+  while(non_space_char(word[i])) i++; // Moves through string until space character is found.
   return &word[i];
 }
 
@@ -49,51 +49,45 @@ int count_words(char *s)
   
 char *copy_str(char *inStr, short len)
 {
-  char *outStr = malloc(len * sizeof(char));
+  char *outStr = malloc(len * sizeof(char)); // Allocates the right amount of space
   int i = 0;
   while( i <= len){
-    outStr[i] = inStr[i];
-    i++;
+    outStr[i] = inStr[i]; // Assigns the ith position of new string the value of the ith
+    i++;                 // value of incoming string.
   }
   return outStr;
 }
 
 char **tokenize(char *str)
 {
-  int numWords = count_words(str);
-  char **tokens = malloc( (numWords+1) * sizeof(char *) );
-
-  char * start_of_word = word_start(str);
-  char * end_of_word = word_terminator(str);
   int i;
-  for(i = 0; i < numWords; i++){
-    //printf("\ni: %d",i);
-    //printf("\n\nWord: %s",start_of_word);
-    //printf("\tLength: %ld",end_of_word-start_of_word);
-    tokens[i] = copy_str(start_of_word,end_of_word-start_of_word);
-    //printf("\nCopied String: %s", tokens[i]);
-
-    start_of_word = word_start(end_of_word);
-    end_of_word = word_terminator(start_of_word);
-    //printf("\nRemaining String: %s", start_of_word);
+  int numWords = count_words(str);    // Allocates a char pointer for each word in string + 1 
+  char **tokens = malloc( (numWords+1) * sizeof(char *) );
+  char *start_of_word = word_start(str); // Start of first word
+  char *end_of_word = word_terminator(str); // End of first word
+  
+  for(i = 0; i < numWords; i++){  // Uses pointer arithmetic to find length of word
+    tokens[i] = copy_str(start_of_word,end_of_word-start_of_word); 
+    start_of_word = word_start(end_of_word); // Gets start of next word
+    end_of_word = word_terminator(start_of_word); // Gets end of next word
   }
-  tokens[i] = NULL;
+  tokens[i] = NULL; // Sets last pointer to null;
   return tokens;
 }
 void print_tokens(char **tokens)
 {
   int i = 0;
-  while(tokens[i] != NULL){
-    printf("%s\n", tokens[i]);
+  while(tokens[i] != NULL){ // Loops through tokens until NULL
+    printf("%s\n", tokens[i]); // prints each token;
     i++;
   }
 }
 void free_tokens(char **tokens)
 {
   int i = 0;
-  while(tokens[i] != NULL){
-    free(tokens[i]);
+  while(tokens[i] != NULL){ // Loops through tokens until NULL
+    free(tokens[i]); // frees the allocated memory of the string pointed to by tokens[i]
     i++;
   }
-  free(tokens);
+  free(tokens); // free the allocated memory for the pointers
 }
