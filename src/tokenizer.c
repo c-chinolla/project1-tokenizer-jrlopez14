@@ -49,7 +49,7 @@ int count_words(char *s)
   
 char *copy_str(char *inStr, short len)
 {
-  char *outStr = malloc(len * sizeof(char)); // Allocates the right amount of space
+  char *outStr = malloc( (len + 1)  * sizeof(char)); // Allocates the right amount of space
   int i = 0;
   while( i <= len){
     outStr[i] = inStr[i]; // Assigns the ith position of new string the value of the ith

@@ -17,7 +17,7 @@ void add_history(List *list, char *str)
   while(str[i] != '\0'){ 
     i++;
   }
-  char *inStr = copy_str(str,i+1);
+  char *inStr = copy_str(str,i);
   Item *item = malloc(sizeof(Item)); // Allocates memory for a new item.
   Item *temp = list->root; 
 

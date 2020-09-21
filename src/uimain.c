@@ -10,7 +10,6 @@ int str_to_num(char *str);
 
 int main()
 {
-  printf("%d", strcmp("history", "hello"));
   List *history = init_history(); // Initiates history list
   char **tokens, str[MAX_LENGTH], c; // Initializes tokens, str for input from user, and c to
                                      // read input into str 
@@ -20,8 +19,8 @@ int main()
   printf("\tWelcome to the tokenizer!");
   printf("\n--------------------------------------\n");
   printf("Special commands: \"exit\" to stop\n");
-  printf("                  \"history\"\n");
-  printf("                  \"!n\" for nth item in history\n");
+  printf("                  \"history\" to print history\n"); 
+  printf("                  \"!n\" to print the nth item in history\n");
   printf("Enter a string to tokenize \n");
   while(strcmp(str,"q") != 0){ 
     printf("\n> ");
@@ -35,22 +34,25 @@ int main()
       goto done;
     }
     else if(strcmp("history",str) == 0){
-      printf("%d", strcmp("history", str));
-      print_history(history);
+       print_history(history);
     }
     else if(str[0] == '!'){
       index  = str_to_num(str+1);          // If string begins with !, get string of item
       printf("%s", get_history(history,index)); // with id of the number that follows !
     }
     else{
+      printf("hello\n");
       tokens = tokenize(str);  // tokenize the string entered
       print_tokens(tokens);   // prints tokens
+      printf("goodbye\n");
       add_history(history,str); // adds str to history of tokenized strings
     }
   }  
  done:
+  printf("blah\n");
   if(history->root != NULL) free_tokens(tokens);
-  free_history(history);  // frees history  
+  printf("im back\n");
+  free_history(history);  // frees history
   return 0;
 }
 
@@ -62,12 +64,14 @@ int strcmp(char *str1, char *str2)
   }
   return str1[i] - str2[i];
 }
+
+// Converts a string number to an integer
 int str_to_num(char *str){
-  int number = 0;
+  int number = 0;           
   int i = 0;
-  while(str[i] != '\0'){
-    number = number * 10;
-    number = number + (str[i]-'0');
+  while(str[i] != '\0'){           // For each digit in string multiply by 10
+    number = number * 10;              
+    number = number + (str[i]-'0');  // G
     i++;
   }
   return number;
