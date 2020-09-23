@@ -3,7 +3,7 @@
 OBJS= tokenizer.o history.o uimain.o
 
 #-g to debug -O3 to optimize code for performance
-CFLAGS= -g -O3 
+CFLAGS= -g -O3
 
 # first target built in make
 all: tokenize
