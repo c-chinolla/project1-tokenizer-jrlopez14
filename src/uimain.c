@@ -53,10 +53,10 @@ int main()
 int strcmp(char *str1, char *str2)
 {
   int i;
-  for (i = 0; str1[i] == str2[i]; i++) {
-    if ( str1[i] == '\0') return 0;
-  }
-  return str1[i] - str2[i];
+  for (i = 0; str1[i] == str2[i]; i++) { // Compares each character while they are the same
+    if ( str1[i] == '\0') return 0; // If loops reaches null terminal character, the strings are
+  }                                //  equal.
+  return str1[i] - str2[i]; // Returns positive number if str1 > str2, otherwise negative.
 }
 
 // Converts a string number to an integer
@@ -66,7 +66,7 @@ int str_to_num(char *str)
   int i = 0;
   while (str[i] != '\0') {           // For each digit in string multiply by 10
     number = number * 10;              
-    number = number + (str[i]-'0');  // G
+    number = number + (str[i]-'0');  // Gets the numeric value of the character and adds
     i++;
   }
   return number;
